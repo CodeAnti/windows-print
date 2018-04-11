@@ -28,7 +28,7 @@ class Dayin{
 		try {
 			// Enter the share name for your USB printer here
 			//$connector = null;
-			$connector = new WindowsPrintConnector("sheng_print");
+			$connector = new WindowsPrintConnector("XP-58");
 			
 			/* Print a "Hello world" receipt" */
 			$printer = new Printer($connector);
@@ -40,7 +40,7 @@ class Dayin{
 			
 			$msg = ['status'=>1001, 'msg'=>'打印成功'];
 		} catch (Exception $e) {
-			$msg = ['status'=>2001, 'msg' => "Couldn't print to this printer: " . $e -> getMessage()];
+			$msg = ['status'=>2001, 'msg' => "Couldn't print to this printer: 111" . $e -> getMessage()];
 		}
 		
 		return $msg;
