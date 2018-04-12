@@ -37,9 +37,9 @@ if "%1"=="h" goto begin
 start mshta vbscript:createobject("wscript.shell").run("""%~nx0"" h",0)(window.close)&&exit
 :begin 
 
-taskkill /F /IM phpdayin.exe > nul
+taskkill /F /IM php-print.exe > nul
 
-"%cd%\RunHiddenConsole.exe" "%cd%\php7.0\phpdayin.exe" "%cd%\bootstrap\index.php"
+"%cd%\RunHiddenConsole.exe" "%cd%\php7.0\php-print.exe" "%cd%\bootstrap\start.php"
 
 
 
