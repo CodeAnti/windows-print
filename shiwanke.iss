@@ -48,6 +48,7 @@ Source: "{#BaseUrl}\src\vc_redist.x86.exe"; DestDir: "{app}"; Check: NeedInstall
 [Icons]
 Name: "{commonprograms}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
 Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon; IconFilename: "{app}\printer.ico"
+Name: "{userstartup}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks:desktopicon
 
 [Code]  
 var  
