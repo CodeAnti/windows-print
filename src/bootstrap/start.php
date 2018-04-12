@@ -1,6 +1,7 @@
 <?php
-use Ratchet\MessageComponentInterface;
-use Ratchet\ConnectionInterface;
+
+use Ratchet\App;
+use Lib\PrintServer;
 
 /**
  * Created by PhpStorm.
@@ -9,4 +10,8 @@ use Ratchet\ConnectionInterface;
  * Time: 15:44
  */
 require __DIR__ . '/vendor/autoload.php';
+require __DIR__ . '/Lib/PrintServer.php';
 
+$app = new App('127.0.0.1', 9527);
+$app->route('/print', new PrintServer(), ['*']);
+$app->run();

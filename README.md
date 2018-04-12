@@ -7,3 +7,18 @@
 参考链接：https://blog.csdn.net/ruifangcui7758/article/details/6662646
 ```
 
+### 启动Printer Server
+```
+src/php7.0/php-print.exe src/bootstrap/start.php
+```
+
+### demo
+```
+1.启动Printer Server
+2.浏览器打开extra/demo/print.html
+(F12查看console)
+(当websocket链接成功，会打印出当前电脑可用的打印机)
+
+注意：打印机的名字，demo中print.js是默认写死了名字，根据实际业务情况修改该值
+```
+
