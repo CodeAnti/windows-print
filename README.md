@@ -7,6 +7,11 @@
 参考链接：https://blog.csdn.net/ruifangcui7758/article/details/6662646
 ```
 
+### 安装生成的软件
+```
+安装时必须关闭360等软件，否则会出现异常情况
+```
+
 ### 启动Printer Server
 ```
 src/php7.0/php-print.exe src/bootstrap/start.php
