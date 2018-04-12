@@ -1,6 +1,7 @@
 <?php
 namespace Lib;
 
+use Carbon\Carbon;
 use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
 use Mike42\Escpos\Printer;
 use Ratchet\MessageComponentInterface;
@@ -92,11 +93,75 @@ class PrintServer implements MessageComponentInterface
     {
         try {
             $printer = new Printer(new WindowsPrintConnector($printer));
-            $printer -> text("Hello World!\n");
+
+            $tableNum = '桌号：' . $order['table_num'] . "\n";
+            $printer -> setJustification(Printer::JUSTIFY_CENTER);
+            $printer -> setEmphasis(true);
+            $printer -> setTextSize(2, 2);
+            $printer -> textChinese($tableNum);
+            $printer -> setEmphasis(false);
+            $printer -> feed(1);
+
+            $paidAt = '下单时间：' . Carbon::createFromTimestamp($order['pay_time'])->toDateTimeString() . "\n";
+            $printer -> setTextSize(1, 1);
+            $printer -> setJustification(Printer::JUSTIFY_LEFT);
+            $printer -> setEmphasis(true);
+            $printer -> textChinese($paidAt);
+            $printer -> setEmphasis(false);
+            $printer -> feed(1);
+
+            foreach($order['order_products'] as $product) {
+                $productTitle = $product['title'] . ' x ' . $product['num'];
+                $productPrice = sprintf('%.2f', $product['price']);
+                $productText  = $this->str_pad($productTitle, 25, '.', STR_PAD_RIGHT) . $productPrice;
+                $printer -> setJustification(Printer::JUSTIFY_LEFT);
+                $printer -> textChinese($productText);
+                $printer -> text("\n");
+            }
+
+            $printer -> feed(1);
+            $printer -> setEmphasis(true);
+            $totalPrice = '总价：' . sprintf('%.2f', $order['total_price']);
+            $printer -> textChinese($totalPrice);
+            $printer -> setEmphasis(false);
+
+            $printer -> feed(5);
             $printer -> cut();
+            $printer -> pulse();
             $printer -> close();
         } catch (\Exception $e) {
             throw $e;
+        }
+    }
+
+    /**
+     * 重写str_pad方法，使中英文可以等边
+     * @param $input
+     * @param $pad_length
+     * @param $pad_string
+     * @param $pad_type
+     * @return string
+     */
+    private function str_pad($input , $pad_length ,$pad_string , $pad_type)
+    {
+        $strLen = (strlen($input) + mb_strlen($input,'UTF8')) / 2;
+        if($strLen < $pad_length){
+            $difference = $pad_length - $strLen;
+            switch ($pad_type) {
+                case STR_PAD_RIGHT:
+                    return $input . str_repeat($pad_string, $difference);
+                    break;
+                case STR_PAD_LEFT:
+                    return str_repeat($pad_string, $difference) . $input;
+                    break;
+                default:
+                    $left = $difference / 2;
+                    $right = $difference - $left;
+                    return str_repeat($pad_string, $left) . $input . str_repeat($pad_string, $right);
+                    break;
+            }
+        }else{
+            return $input;
         }
     }
 }

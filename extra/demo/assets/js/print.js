@@ -18,9 +18,16 @@ $(function(){
             "type":"PRINT_ORDER",
             "printer": 'XP-58', // 打印机的名称
             "data":{
-                "order_no":"201804121205",
-                "table_number": 12,
-                "price":"20.00"
+                "order_no":"201712081011283442",
+                "pay_time":"1513060320",
+                "table_num": 12,
+                "total_price": 84,
+                "order_products": [
+                    {'title': '大煮干丝', 'num': 2, 'price': 30},
+                    {'title': '大盘鸡', 'num': 1, 'price': 40},
+                    {'title': '紫菜蛋汤', 'num': 1, 'price': 10},
+                    {'title': '米饭', 'num': 2, 'price': 4}
+                ]
             }
         };
         var content = JSON.stringify(data);

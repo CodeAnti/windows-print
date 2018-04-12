@@ -1,6 +1,7 @@
 {
     "require": {
         "mike42/escpos-php": "^2.0",
-        "cboden/ratchet": "^0.4.1"
+        "cboden/ratchet": "^0.4.1",
+        "nesbot/carbon": "^1.25"
     }
 }
